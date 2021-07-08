@@ -1,0 +1,120 @@
+//Login (Open a Command Prompt)
+cd Downloads
+chmod 400 aws-server1.pem // permission limit only for us
+ssh -i "aws-server1.pem" ubuntu@18.209.226.86
+ssh access kiynne remotly 
+
+//Update Ubuntu Repository
+sudo apt-get update
+sudo apt-get upgrade
+
+
+//Install NodeJS in Server
+//curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+
+sudo apt-get install -y nodejs
+
+
+
+//Check the Installation 
+node -v
+
+
+
+
+//Install Mysql Server
+sudo apt-get install mysql-server
+
+
+
+//MySql Configuration for Security
+sudo mysql_secure_installation
+
+
+
+//Enter Good Password Eg: AdoBuruwa@007
+
+
+
+//Optionally You can Change some more configurations on mysql server by changing cnf file
+//sudo nano /etc/mysql/mysql.conf.d/mysqld.cnf
+
+
+//Login to the MySQL Database Server
+sudo mysql -uroot -p
+
+//Fix on Native Password Usage (Use of General Way)
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'AdoBuruwa@007';
+
+
+
+
+CREATE DATABASE dbchannel;
+
+USE dbchannel;
+
+CREATE TABLE speciality 
+(id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+name VARCHAR(255));
+
+INSERT INTO speciality (name) VALUES ('Orthopaedic');
+INSERT INTO speciality (name) VALUES ('Hematologist');
+INSERT INTO speciality (name) VALUES ('Gynecologist');
+
+SELECT * FROM speciality;
+
+
+
+
+
+
+CREATE TABLE hospital (id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+ name VARCHAR(255), place VARCHAR(50));
+
+
+INSERT INTO hospital (name, place) VALUES ('Nawaloka Hospital','Narahenpita');
+INSERT INTO hospital (name, place) VALUES ('Asiri Hospital','Colombo 04');
+INSERT INTO hospital (name, place) VALUES ('Kings Hospital','Colombo 05');
+
+//Exit From mysql
+exit
+
+
+
+
+
+------------- SAMPLE 1 -----------------
+
+//Download Prebuilt Node Sample Project and Run
+git clone https://github.com/heroku/node-js-getting-started.git
+cd node-js-getting-started
+npm install
+
+nano index.js
+
+//(Change port No to 3000 and Save by using Ctrl + X)
+
+npm start
+
+
+-------------- SAMPLE 2 ------------------
+
+cd ..
+mkdir mychannel
+cd mychannel
+npm init
+
+npm install --save express
+npm install --save mysql
+npm install --save body-parser
+
+
+nano index.js
+
+//Copy & Paste From index.js code and Exit (Ctrl + X)
+
+node index.js
+
+
+
