@@ -1,0 +1,81 @@
+var mysql = require('mysql');
+const express = require('express');
+const bodyparser = require('body-parser');
+var app = express();
+
+app.use(bodyparser.json());
+
+
+
+var con = mysql.createConnection({
+host: 'localhost',
+user: 'root',
+password: 'Samarakoon131@',
+database: 'dbchannel'
+});
+
+
+
+con.connect((err)=>{
+        if(!err)
+        console.log('DB Connection Success');
+        else
+        console.log('DB Connection Failed. '+JSON.stringify(err, undefined, 2));
+});
+
+
+
+
+app.listen(3000, ()=>console.log('Express Server Started.'));
+
+
+
+
+//List
+app.get('/api/speciality', (req, res)=>{
+	var sql = 'SELECT * FROM speciality';
+ 	con.query(sql, (err, rows, fields)=>{ 
+                if(!err)
+                res.send(rows);
+                else
+                console.log(err);
+        });
+});
+
+
+
+
+
+
+//Get
+app.get('/api/speciality/:id', (req, res)=>{
+ 	con.query('SELECT * FROM speciality WHERE id=?',[req.params.id],(err, rows, fields)=>{
+                if(!err)
+                res.send(rows);
+                else
+                console.log(err);
+        });
+});
+
+
+//Delete
+app.delete('/api/speciality/:id', (req, res)=>{
+ 	con.query('DELETE FROM speciality WHERE id=?',[req.params.id],(err, rows, fields)=>{
+                if(!err)
+                res.send('Delete Success');
+                else
+                console.log(err);
+        });
+});
+
+//Insert
+app.post('/api/speciality', (req, res)=>{
+	var sql = 'INSERT INTO speciality (name) VALUES (?)';
+ 	con.query(sql, [req.body.name], (err, rows, fields)=>{
+                if(!err)
+                res.send('Insert Success');
+                else
+                console.log(err);
+        });
+});
+
